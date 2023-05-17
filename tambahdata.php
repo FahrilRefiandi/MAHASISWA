@@ -76,7 +76,26 @@
                         <label for="noTlpn">No Tlpn</label>
                     </div>
 
-                    <label for="" class="mb-1"> Hobi :  </label>
+                    <div class="form-floating mb-3 mt-2">
+                        <input type="text" class="form-control" id="prodi" name="prodi" placeholder="Informatika">
+                        <label for="nama">Prodi</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                            <option selected>Jenis kelamin</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                        <label for="floatingSelect">Jenis kelamin</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="file" class="form-control" id="foto" name="foto" placeholder="foto">
+                        <label for="nama">Foto</label>
+                    </div>
+
+                    <label for="" class="mb-1"> Hobi : </label>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="Memancing" id="memeancing" name="hobi">
                         <label class="form-check-label" for="flexCheckDefault">
@@ -96,6 +115,24 @@
                             Bersepedah
                         </label>
                     </div>
+
+
+                    <label for="" class="mb-1"> Fakultas : </label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="fakultas" id="fakultas1" value="FTIB">
+                        <label class="form-check-label" for="fakultas1">
+                            FTIB
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="fakultas" id="fakultas2" value="FTIC">
+                        <label class="form-check-label" for="fakultas2">
+                            FTIC
+                        </label>
+                    </div>
+
+                    
+
 
                     <div class="d-grid gap-2 mt-5">
                         <button class="btn btn-primary" type="submit">Submit</button>
