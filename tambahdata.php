@@ -56,33 +56,33 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-3">Tambah Data</h4>
-                <form action="" method="post">
+                <form action="tambahdata.php" method="post"  enctype="multipart/form-data">
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="nim" name="nim" placeholder="1203210093">
+                        <input type="number" class="form-control" id="nim" name="nim" placeholder="1203210093" required>
                         <label for="nim">Nim</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Fahril Refiandi">
+                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Fahril Refiandi" required>
                         <label for="nama">Nama</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="Alamat" id="alamat"></textarea>
+                        <textarea class="form-control" placeholder="Alamat" id="alamat" name="alamat" required></textarea>
                         <label for="alamat">Alamat</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="noTlpn" name="noTlpn" placeholder="0821*******" minlength="11" maxlength="12">
+                        <input type="number" class="form-control" id="noTlpn" name="noTlpn" placeholder="0821*******" minlength="11" maxlength="12" required>
                         <label for="noTlpn">No Tlpn</label>
                     </div>
 
                     <div class="form-floating mb-3 mt-2">
-                        <input type="text" class="form-control" id="prodi" name="prodi" placeholder="Informatika">
+                        <input type="text" class="form-control" id="prodi" name="prodi" placeholder="Informatika" required>
                         <label for="nama">Prodi</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="jenisKelamin" required>
                             <option selected>Jenis kelamin</option>
                             <option value="Laki-laki">Laki-laki</option>
                             <option value="Perempuan">Perempuan</option>
@@ -91,20 +91,20 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="file" class="form-control" id="foto" name="foto" placeholder="foto">
+                        <input type="file" class="form-control" id="foto" name="foto" placeholder="foto" required>
                         <label for="nama">Foto</label>
                     </div>
 
                     <label for="" class="mb-1"> Hobi : </label>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Memancing" id="memeancing" name="hobi">
+                        <input class="form-check-input" type="checkbox" value="Memancing" id="memeancing" name="hobi" >
                         <label class="form-check-label" for="flexCheckDefault">
                             Memancing
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Berenang" id="berenang" name="hobi">
+                        <input class="form-check-input" type="checkbox" value="Berenang" id="berenang" name="hobi" >
                         <label class="form-check-label" for="flexCheckDefault">
                             Berenang
                         </label>
@@ -135,7 +135,7 @@
 
 
                     <div class="d-grid gap-2 mt-5">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-primary" type="submit" name="save" >Submit</button>
                     </div>
                 </form>
 
@@ -146,6 +146,7 @@
     </div>
     <!-- content -->
 
+    
 
 
     <!-- Optional JavaScript; choose one of the two! -->
@@ -161,3 +162,48 @@
 </body>
 
 </html>
+
+<?php
+include 'hubung.php';
+
+if (isset($_POST['save'])) {
+
+    $data=[
+        'nama' => $_POST['nama'],
+        'nim' => $_POST['nim'],
+        'alamat' => $_POST['alamat'],
+        'noTlpn' => $_POST['noTlpn'],
+        'prodi' => $_POST['prodi'],
+        'jenisKelamin' => $_POST['jenisKelamin'],
+        'hobi' => $_POST['hobi'],
+        'fakultas' => $_POST['fakultas'],
+    ];
+
+    // upload foto
+    $foto = $_FILES['foto']; 
+    $tmp = $_FILES['foto']['tmp_name'];
+    $fotobaru = date('dmYHis').$foto;
+    $path = "images/".$fotobaru;
+
+    // print_r(move_uploaded_file($tmp, $path));
+    // die();
+
+    if(move_uploaded_file($tmp, $path)){
+        $query = "INSERT INTO mahasiswa (nama, nim, alamat, no_telp, prodi, sex, hobi, fakultas, foto) values ('$data[nama]','$data[nim]', '$data[alamat]','$data[noTlpn]', '$data[prodi]', '$data[jenisKelamin]','$data[hobi]','$data[fakultas]','$fotobaru')";
+        $sql = mysqli_query($koneksi, $query);
+        if($sql){
+            echo "<script>alert('Data berhasil ditambahkan!'); window.location='daftarmahasiswa.php';</script>";
+        }else{
+            echo "<script>alert('Data gagal ditambahkan!'); window.location='tambahdata.php';</script>";
+        }
+    }else{
+        echo "<script>alert('Foto gagal diupload!'); window.location='tambahdata.php';</script>";
+    }
+
+    
+    // $sql = "INSERT INTO mahasiswa (nama, nim, alamat, noTlpn, prodi, jenisKelamin, hobi, fakultas, foto) values ($data[nama],$data[nim], $data[alamat],$data[noTlpn], $data[prodi], $data[jenisKelamin],$data[hobi],$data[fakultas],$data[foto])";
+    
+    
+}
+
+?>
