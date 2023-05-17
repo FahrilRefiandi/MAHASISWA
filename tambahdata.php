@@ -55,38 +55,52 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-body">
-                <h4>Daftar Mahasiswa</h4>
-                <div class="list-group mt-4">
-                    <a href="#" class="list-group-item d-flex justify-content-between align-items-center">A simple dark list group item
-                        <span class="badge">
-                            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item d-flex justify-content-between align-items-center">A simple dark list group item
-                        <span class="badge">
-                            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item d-flex justify-content-between align-items-center">A simple dark list group item
-                        <span class="badge">
-                            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item d-flex justify-content-between align-items-center">A simple dark list group item
-                        <span class="badge">
-                            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                        </span>
-                    </a>
-                </div>
+                <h4 class="mb-3">Tambah Data</h4>
+                <form action="" method="post">
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="nim" name="nim" placeholder="1203210093">
+                        <label for="nim">Nim</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Fahril Refiandi">
+                        <label for="nama">Nama</label>
+                    </div>
 
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="Alamat" id="alamat"></textarea>
+                        <label for="alamat">Alamat</label>
+                    </div>
 
-                <div class="d-grid gap-2 mt-5">
-                    <button class="btn btn-primary" type="button">Tambah Data</button>
-                </div>
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="noTlpn" name="noTlpn" placeholder="0821*******" minlength="11" maxlength="12">
+                        <label for="noTlpn">No Tlpn</label>
+                    </div>
+
+                    <label for="" class="mb-1"> Hobi :  </label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Memancing" id="memeancing" name="hobi">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Memancing
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Berenang" id="berenang" name="hobi">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Berenang
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="Bersepedah" id="bersepedah" name="hobi">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Bersepedah
+                        </label>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-5">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </form>
 
 
 
@@ -95,7 +109,7 @@
     </div>
     <!-- content -->
 
-    
+
 
     <!-- Optional JavaScript; choose one of the two! -->
 
