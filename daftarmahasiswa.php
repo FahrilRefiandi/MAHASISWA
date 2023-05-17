@@ -15,6 +15,7 @@
 
 <body>
 
+
     <!-- header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -48,6 +49,17 @@
         </div>
     </nav>
     <!-- header -->
+    <?php
+include "hubung.php";
+// session_start();
+$hasil = mysqli_query($koneksi,"SELECT * FROM mahasiswa" );
+$no =1;
+if ($hasil === false)
+{
+    echo "data gaagl";
+}?>
+
+
 
 
     <!-- content -->
@@ -56,30 +68,18 @@
             <div class="card-body">
                 <h4>Daftar Mahasiswa</h4>
                 <div class="list-group">
-                    <a href="#" class="list-group-item d-flex justify-content-between align-items-center">A simple dark list group item
+                <?php
+                    while($d =$hasil -> fetch_array()) {?>
+                    <a href="#" class="list-group-item d-flex justify-content-between align-items-center"> <?php echo $d["nama"]; ?>
                         <span class="badge">
                             <button class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
                             <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
                         </span>
                     </a>
-                    <a href="#" class="list-group-item d-flex justify-content-between align-items-center">A simple dark list group item
-                        <span class="badge">
-                            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item d-flex justify-content-between align-items-center">A simple dark list group item
-                        <span class="badge">
-                            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item d-flex justify-content-between align-items-center">A simple dark list group item
-                        <span class="badge">
-                            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                        </span>
-                    </a>
+                   <?php }
+                ?>
+                    
+                    
                 </div>
 
 
