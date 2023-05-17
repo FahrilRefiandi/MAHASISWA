@@ -16,10 +16,8 @@
 
 <body>
 
-
     <!-- header -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
             <a class="navbar-brand" href="#">Navbar</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -50,52 +48,83 @@
         </div>
     </nav>
     <!-- header -->
-    <?php
-include "hubung.php";
-$hasil = mysqli_query($koneksi,"SELECT * FROM mahasiswa" );
-?>
+<!-- program phpnya -->
 <?php
-
-$no =1;
-if ($hasil === false)
+if (isset($_GET["nama"]))
 {
-    echo "data gaagl";
-}?>
-
-
+    $nama = $_GET["nama"];
+}
+include "hubung.php";
+$kueri = mysqli_query($koneksi, "SELECT * FROM mahasiswa where nama ='$nama'");
+$d = mysqli_fetch_array($kueri);
+?>
 
 
     <!-- content -->
-    <div class="container mt-5">
+    <div class="container mt-6 pt-6">
         <div class="card">
             <div class="card-body">
-                <h4>Daftar Mahasiswa</h4>
-<!-- <<<<<<< HEAD -->
-                <div class="list-group">
-                <?php
-                    while($d =$hasil -> fetch_array()) {?>
-                 
+                <h4 class="mb-3 text-center">data <?php echo $d["nama"];?></h4>
 
-                <div class="list-group mt-4">
-                    <a href="detail.php?nama=<?=$d['nama']?>" class="list-group-item d-flex justify-content-between align-items-center"><?php echo $d["nama"]; ?>
-                        <span class="badge">
-                            <!-- tolong diubah jadi button kayak awalnya karena tadi gak bisa ngakses link ke halaman edit -->
-                            <a class="btn btn-primary " href="##" role="button" type="submit"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a class="btn btn-danger" href="##" type="submit"><i class="fa-solid fa-trash-can"></i></a>
-                        </span>
-                    </a>
+                    <div class="row">
+                        <div class="col">nim:</div>
+                        <div class="col"> <?php echo $d["nim"];?></div>
+                    </div> 
                    
-                    
-                   <?php }
-                ?>
-                    
-                    
+              
+                    <div class="row">
+                        <div class="col text-left">nama:</div>
+                        <div class="col"> <?php echo $d["nama"];?></div>
+                    </div> 
+                   
+                    <div class="row">
+                        <div class="col">alamat:</div>
+                        <div class="col"> <?php echo $d["alamat"];?></div>
+                    </div> 
+                   
+                    <div class="row">
+                        <div class="col">no telpon:</div>
+                        <div class="col"> <?php echo $d["no_telp"];?></div>
+                    </div> 
+                   
+                    <div class="row">
+                        <div class="col">hobi:</div>
+                        <div class="col"> <?php echo $d["hobi"];?></div>
+                    </div> 
+                   
+                    <div class="row">
+                        <div class="col">prodi:</div>
+                        <div class="col"> <?php echo $d["prodi"];?></div>
+                    </div> 
+                   
+                    <div class="row">
+                        <div class="col">fakultas:</div>
+                        <div class="col"> <?php echo $d["fakultas"];?></div>
+                    </div> 
+                   
+                    <div class="row">
+                        <div class="col">jenis kelamin:</div>
+                        <div class="col"> <?php echo $d["sex"];?></div>
+                    </div> 
+                   
+                    <div class="row">
+                        <div class="col">foto:</div>
+                        <div class="col"><img src=" <?php echo $d["foto"];?>" style="width:100px;"></div>
+                    </div> 
+
+                    <div class="row" pt-5>
+                        
+                             <div class="col">
+                                <a href="daftarmahasiswa.php" class="btn btn-primary" role="button"> kembali</a>
+                            </div>
+                       
+                                        
+                   
+                   
                 </div>
 
-
-                <div class="d-grid gap-2 mt-5">
-                    <a class="btn btn-primary" href="###" role="button">Tambah Data</a>
                 </div>
+               
 
 
 
@@ -104,7 +133,7 @@ if ($hasil === false)
     </div>
     <!-- content -->
 
-    
+
 
     <!-- Optional JavaScript; choose one of the two! -->
 

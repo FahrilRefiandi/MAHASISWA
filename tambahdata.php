@@ -56,7 +56,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-3">Tambah Data</h4>
-                <form action="tambahdata.php" method="post"  enctype="multipart/form-data">
+                <form action="" method="post">
                     <div class="form-floating mb-3">
                         <input type="number" class="form-control" id="nim" name="nim" placeholder="1203210093" required>
                         <label for="nim">Nim</label>
