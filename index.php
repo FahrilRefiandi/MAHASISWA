@@ -49,8 +49,8 @@
                             </a>
                             <span class="badge">
                                 <form action="" method="post">
-                                    <a class="btn btn-primary" href="edit.php/<?= $d['nim'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <button class="btn btn-danger" onclick="return confirm('Anda yakin data <?= $d['nama'] ?> akan dihapus ?')" name="delete" value="<?= $d['nim']; ?>" type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                    <a class="btn btn-primary" href="edit.php?nim=<?= $d['nim'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a class="btn btn-danger"  href="hapus.php?nama=<?= $d['nama']; ?>"onclick="return confirm('Anda yakin data <?= $d['nama'] ?> akan dihapus ?')" name="delete" value="" type="submit"><i class="fa-solid fa-trash-can"></i></a>
                                 </form>
                             </span>
                         </li>

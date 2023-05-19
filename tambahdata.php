@@ -22,7 +22,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-3">Tambah Data</h4>
-                <form action="tambahdata.php" method="post"  enctype="multipart/form-data">
+                <form action="nambah.php" method="post"  enctype="multipart/form-data">
                     <div class="form-floating mb-3">
                         <input type="number" class="form-control" id="nim" name="nim" placeholder="1203210093" required>
                         <label for="nim">Nim</label>
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="noTlpn" name="noTlpn" placeholder="0821*******" minlength="11" maxlength="12" required>
+                        <input type="number" class="form-control" id="noTlpn" name="no_telp" placeholder="0821*******" minlength="11" maxlength="12" required>
                         <label for="noTlpn">No Tlpn</label>
                     </div>
 
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="jenisKelamin" required>
+                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="sex" required>
                             <option selected>Jenis kelamin</option>
                             <option value="Laki-laki">Laki-laki</option>
                             <option value="Perempuan">Perempuan</option>
@@ -129,45 +129,46 @@
 
 </html>
 
-<?php
-include 'hubung.php';
+<!-- <?php 
+// include 'hubung.php';
 
-if (isset($_POST['save'])) {
+// if (isset($_POST['save'])) {
 
-    $data=[
-        'nama' => $_POST['nama'],
-        'nim' => $_POST['nim'],
-        'alamat' => $_POST['alamat'],
-        'noTlpn' => $_POST['noTlpn'],
-        'prodi' => $_POST['prodi'],
-        'jenisKelamin' => $_POST['jenisKelamin'],
-        'hobi' => $_POST['hobi'],
-        'fakultas' => $_POST['fakultas'],
-    ];
+//     $data=[
+//         'nama' => $_POST['nama'],
+//         'nim' => $_POST['nim'],
+//         'alamat' => $_POST['alamat'],
+//         'noTlpn' => $_POST['noTlpn'],
+//         'prodi' => $_POST['prodi'],
+//         'jenisKelamin' => $_POST['jenisKelamin'],
+//         'hobi' => $_POST['hobi'],
+//         'fakultas' => $_POST['fakultas'],
+//     ];
 
-    // upload file 
+//     // upload file 
     
-        $targetDirectory = 'image/';
-        $targetFile = $targetDirectory . basename($_FILES['foto']['name']);
+//         $targetDirectory = 'image/';
+//         $targetFile = $targetDirectory . basename($_FILES['foto']['name']);
 
         
 
         
         
         
-        if (file_exists($targetFile)) {
-            echo "<script>alert('Failed!,File already exist')</script>";
-        } else {
-            if (move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {    
-                // save data to database
-                $sql = "INSERT INTO mahasiswa (nama,nim,alamat,no_telp,prodi,sex,hobi,fakultas,foto) VALUES ('".$data['nama']."','".$data['nim']."','".$data['alamat']."','".$data['noTlpn']."','".$data['prodi']."','".$data['jenisKelamin']."','".$data['hobi']."','".$data['fakultas']."','".$targetFile."')";
-                $query = mysqli_query($koneksi, $sql);
+//         if (file_exists($targetFile)) {
+//             echo "<script>alert('Failed!,File already exist')</script>";
+//         } else {
+//             if (move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {    
+//                 // save data to database
+//                 $sql = "INSERT INTO mahasiswa (nama,nim,alamat,no_telp,prodi,sex,hobi,fakultas,foto) VALUES ('".$data['nama']."','".$data['nim']."','".$data['alamat']."','".$data['noTlpn']."','".$data['prodi']."','".$data['jenisKelamin']."','".$data['hobi']."','".$data['fakultas']."','".$targetFile."')";
+//                 $query = mysqli_query($koneksi, $sql);
 
-                echo "<script>alert('Success')</script>";    
-            } else {
-                echo "<script>alert('Failed!')</script>";
-            }
-        }
-}
+//                 echo "<script>alert('Success')</script>"; 
+//                 header("location: index.php");
+//             } else {
+//                 echo "<script>alert('Failed!')</script>";
+//             }
+//         }
+// }
 
-?>
+// 

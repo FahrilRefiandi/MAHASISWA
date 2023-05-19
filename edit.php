@@ -18,17 +18,19 @@
 
     <?php
     include 'hubung.php';
+    if (isset($_GET["nim"])) {
+        $nim = $_GET["nim"];
+    }
+    // $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    // $uri_segments = explode('/', $uri_path);
+    // $nim = $uri_segments[3];
 
-    $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-    $uri_segments = explode('/', $uri_path);
-    $nim = $uri_segments[3];
-
-    $hasil = mysqli_query($koneksi, "SELECT * FROM mahasiswa where nim ='$nim'");
-    $d = mysqli_fetch_array($hasil);
+    $kueri = mysqli_query($koneksi, "SELECT * FROM mahasiswa where nim ='$nim'");
+    $d = mysqli_fetch_array($kueri);
 
     if ($d == null) {
         echo "<script>alert('Data tidak ditemukan')</script>";
-        echo "<script>window.location.href = '/MAHASISWA/daftarmahasiswa.php'</script>";
+        echo "<script>window.location.href = '/MAHASISWA/index.php'</script>";
     }
 
     ?>
@@ -44,7 +46,7 @@
                 <h4 class="mb-3">Edit Data</h4>
                 <form method="post" enctype="multipart/form-data">
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="nim" name="nim" value="<?= $d['nim'] ?>" placeholder="1203210093" required>
+                        <input type="number" class="form-control " id="nim" name="nim" value="<?= $d['nim'] ?>" placeholder="1203210093" disabled>
                         <label for="nim">Nim</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -58,7 +60,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="noTlpn" name="noTlpn" value="<?= $d['no_telp'] ?>" placeholder="0821*******" minlength="11" maxlength="12" required>
+                        <input type="number" class="form-control" id="no_telp" name="no_telp" value="<?= $d['no_telp'] ?>" placeholder="0821*******" minlength="11" maxlength="12" required>
                         <label for="noTlpn">No Tlpn</label>
                     </div>
 
@@ -68,7 +70,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="jenisKelamin" required>
+                        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="sex" required>
                             <option selected>Jenis kelamin</option>
                             <option <?php if ($d['sex'] == "Laki-laki") echo "selected";  ?> value="Laki-laki">Laki-laki</option>
                             <option <?php if ($d['sex'] == "Perempuan") echo "selected";  ?> value="Perempuan">Perempuan</option>
@@ -77,7 +79,7 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="file" class="form-control" id="foto" name="foto" placeholder="foto">
+                        <input type="file" class="form-control" id="foto" name="foto" placeholder="foto" value="<? $d[foto] ?>">
                         <label for="nama">Foto</label>
                     </div>
 
@@ -154,53 +156,85 @@
 <?php
 
 
+// if (isset($_POST['save'])) {
+
+//     $data = [
+//         'nama' => $_POST['nama'],
+//         'nim' => $_POST['nim'],
+//         'alamat' => $_POST['alamat'],
+//         'noTlpn' => $_POST['noTlpn'],
+//         'prodi' => $_POST['prodi'],
+//         'jenisKelamin' => $_POST['jenisKelamin'],
+//         'hobi' => $_POST['hobi'],
+//         'fakultas' => $_POST['fakultas'],
+//     ];
+
+//     if ($_FILES['foto']['name'] != null) {
+//         $targetDirectory = 'image/';
+//         $targetFile = $targetDirectory . basename($_FILES['foto']['name']);
+
+//         if (file_exists($targetFile)) {
+//             echo "<script>alert('Failed!,File already exist')</script>";
+//         } else {
+//             if (move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {
+
+//                 // update data 
+
+//                 $sql = "UPDATE `mahasiswa` SET `nim` = '" . $data['nim'] . "', `nama` = '" . $data['nama'] . "', `alamat` = '" . $data['alamat'] . "', `no_telp` = '" . $data['noTlpn'] . "', `hobi` = '" . $data['hobi'] . "', `prodi` = '" . $data['prodi'] . "', `fakultas` = '" . $data['fakultas'] . "', `sex` = '" . $data['jenisKelamin'] . "', `foto` = '" . $targetFile . "' WHERE `mahasiswa`.`nim` = $nim";
+//                 $query = mysqli_query($koneksi, $sql);
+
+//                 echo "
+//                 <script>
+//                 window.location.href = '/MAHASISWA/index.php'
+//                 alert('Success');
+//                 </script>";
+//             } else {
+//                 echo "<script>alert('Failed!')</script>";
+//             }
+//         }
+//     } else {
+//         $sql = "UPDATE `mahasiswa` SET `nim` = '" . $data['nim'] . "', `nama` = '" . $data['nama'] . "', `alamat` = '" . $data['alamat'] . "', `no_telp` = '" . $data['noTlpn'] . "', `hobi` = '" . $data['hobi'] . "', `prodi` = '" . $data['prodi'] . "', `fakultas` = '" . $data['fakultas'] . "', `sex` = '" . $data['jenisKelamin'] . "' WHERE `mahasiswa`.`nim` = $nim";
+//         $query = mysqli_query($koneksi, $sql);
+
+//         echo "
+//         <script>
+//         window.location.href = '/MAHASISWA/index.php'
+//         alert('Success');
+//         </script>";
+        
+//     }
+// }
 if (isset($_POST['save'])) {
+    $nim = $_POST["nim"];
+    $nama = $_POST["nama"];
+    $alamat = $_POST["alamat"];//flag
+    $no_telp = $_POST["no_telp"];//flag
+    $prodi = $_POST["prodi"];
+    $sex = $_POST["sex"]; //flag
+    $fakultas = $_POST["fakultas"];
+    
+    $hobi = $_POST["hobi"];
+    
+    //upload gambar dulu
+    $namafile="";
+    
+        $namafile=$_FILES['foto']['name'];
+        $tmpname = $_FILES['foto']['tmp_name'];
+        // $size = $_FILES['foto']['size'];
+        move_uploaded_file($tmpname, 'image/'.$namafile);
+    $path = "image/".$namafile;
+    $sql = "UPDATE mahasiswa SET  nama='$nama', alamat = '$alamat' , no_telp= '$no_telp', hobi = '$hobi', prodi= '$prodi', fakultas = '$fakultas', sex ='$sex',foto = '$path' WHERE nim = '$nim'";
 
-    $data = [
-        'nama' => $_POST['nama'],
-        'nim' => $_POST['nim'],
-        'alamat' => $_POST['alamat'],
-        'noTlpn' => $_POST['noTlpn'],
-        'prodi' => $_POST['prodi'],
-        'jenisKelamin' => $_POST['jenisKelamin'],
-        'hobi' => $_POST['hobi'],
-        'fakultas' => $_POST['fakultas'],
-    ];
-
-    if ($_FILES['foto']['name'] != null) {
-        $targetDirectory = 'image/';
-        $targetFile = $targetDirectory . basename($_FILES['foto']['name']);
-
-        if (file_exists($targetFile)) {
-            echo "<script>alert('Failed!,File already exist')</script>";
-        } else {
-            if (move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {
-
-                // update data 
-
-                $sql = "UPDATE `mahasiswa` SET `nim` = '" . $data['nim'] . "', `nama` = '" . $data['nama'] . "', `alamat` = '" . $data['alamat'] . "', `no_telp` = '" . $data['noTlpn'] . "', `hobi` = '" . $data['hobi'] . "', `prodi` = '" . $data['prodi'] . "', `fakultas` = '" . $data['fakultas'] . "', `sex` = '" . $data['jenisKelamin'] . "', `foto` = '" . $targetFile . "' WHERE `mahasiswa`.`nim` = $nim";
-                $query = mysqli_query($koneksi, $sql);
-
-                echo "
-                <script>
-                window.location.href = '/MAHASISWA/daftarmahasiswa.php'
+    if (mysqli_query($koneksi, $sql))
+    {
+        // header("Location:index.php");
+       echo" <script>
+                window.location.href = 'index.php'
                 alert('Success');
                 </script>";
-            } else {
-                echo "<script>alert('Failed!')</script>";
-            }
-        }
-    } else {
-        $sql = "UPDATE `mahasiswa` SET `nim` = '" . $data['nim'] . "', `nama` = '" . $data['nama'] . "', `alamat` = '" . $data['alamat'] . "', `no_telp` = '" . $data['noTlpn'] . "', `hobi` = '" . $data['hobi'] . "', `prodi` = '" . $data['prodi'] . "', `fakultas` = '" . $data['fakultas'] . "', `sex` = '" . $data['jenisKelamin'] . "' WHERE `mahasiswa`.`nim` = $nim";
-        $query = mysqli_query($koneksi, $sql);
-
-        echo "
-        <script>
-        window.location.href = '/MAHASISWA/daftarmahasiswa.php'
-        alert('Success');
-        </script>";
         
     }
+    else
+    echo "Error updating record: " . mysqli_error($koneksi);
 }
-
 ?>

@@ -77,7 +77,7 @@
                 <div class="row" pt-5>
 
                     <div class="col">
-                        <a href="daftarmahasiswa.php" class="btn btn-primary" role="button"> kembali</a>
+                        <a href="index.php" class="btn btn-primary" role="button"> kembali</a>
                     </div>
                 </div>
 
