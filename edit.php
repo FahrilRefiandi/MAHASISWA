@@ -9,74 +9,94 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/MAHASISWA/style.css">
 
-    <title>Tambah Daftar Mahasiswa</title>
+    <title>Edit Data</title>
 </head>
 
 <body>
+
+    <?php
+    include 'hubung.php';
+
+    $uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $uri_segments = explode('/', $uri_path);
+    $nim = $uri_segments[3];
+
+    $hasil = mysqli_query($koneksi, "SELECT * FROM mahasiswa where nim ='$nim'");
+    $d = mysqli_fetch_array($hasil);
+
+    if ($d == null) {
+        echo "<script>alert('Data tidak ditemukan')</script>";
+        echo "<script>window.location.href = '/MAHASISWA/daftarmahasiswa.php'</script>";
+    }
+
+    ?>
+
+
+
 
 
     <!-- content -->
     <div class="container mt-5 mb-5">
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-3">Tambah Data</h4>
-                <form action="tambahdata.php" method="post"  enctype="multipart/form-data">
+                <h4 class="mb-3">Edit Data</h4>
+                <form method="post" enctype="multipart/form-data">
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="nim" name="nim" placeholder="1203210093" required>
+                        <input type="number" class="form-control" id="nim" name="nim" value="<?= $d['nim'] ?>" placeholder="1203210093" required>
                         <label for="nim">Nim</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Fahril Refiandi" required>
+                        <input type="text" class="form-control" id="nama" name="nama" value="<?= $d['nama'] ?>" placeholder="Fahril Refiandi" required>
                         <label for="nama">Nama</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="Alamat" id="alamat" name="alamat" required></textarea>
+                        <textarea class="form-control" placeholder="Alamat" id="alamat" name="alamat" required><?= $d['alamat'] ?> </textarea>
                         <label for="alamat">Alamat</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="noTlpn" name="noTlpn" placeholder="0821*******" minlength="11" maxlength="12" required>
+                        <input type="number" class="form-control" id="noTlpn" name="noTlpn" value="<?= $d['no_telp'] ?>" placeholder="0821*******" minlength="11" maxlength="12" required>
                         <label for="noTlpn">No Tlpn</label>
                     </div>
 
                     <div class="form-floating mb-3 mt-2">
-                        <input type="text" class="form-control" id="prodi" name="prodi" placeholder="Informatika" required>
+                        <input type="text" class="form-control" id="prodi" name="prodi" value="<?= $d['prodi'] ?>" placeholder="Informatika" required>
                         <label for="nama">Prodi</label>
                     </div>
 
                     <div class="form-floating mb-3">
                         <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="jenisKelamin" required>
                             <option selected>Jenis kelamin</option>
-                            <option value="Laki-laki">Laki-laki</option>
-                            <option value="Perempuan">Perempuan</option>
+                            <option <?php if ($d['sex'] == "Laki-laki") echo "selected";  ?> value="Laki-laki">Laki-laki</option>
+                            <option <?php if ($d['sex'] == "Perempuan") echo "selected";  ?> value="Perempuan">Perempuan</option>
                         </select>
                         <label for="floatingSelect">Jenis kelamin</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="file" class="form-control" id="foto" name="foto" placeholder="foto" required>
+                        <input type="file" class="form-control" id="foto" name="foto" placeholder="foto">
                         <label for="nama">Foto</label>
                     </div>
 
                     <label for="" class="mb-1"> Hobi : </label>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Memancing" id="memeancing" name="hobi" >
+                        <input class="form-check-input" type="checkbox" value="Memancing" id="memeancing" name="hobi" <?php if ($d['hobi'] == "Memancing") echo "checked"; ?>>
                         <label class="form-check-label" for="flexCheckDefault">
                             Memancing
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Berenang" id="berenang" name="hobi" >
+                        <input class="form-check-input" type="checkbox" value="Berenang" id="berenang" name="hobi" <?php if ($d['hobi'] == "Berenang") echo "checked"; ?>>
                         <label class="form-check-label" for="flexCheckDefault">
                             Berenang
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Bersepedah" id="bersepedah" name="hobi">
+                        <input class="form-check-input" type="checkbox" value="Bersepedah" id="bersepedah" name="hobi" <?php if ($d['hobi'] == "Bersepedah") echo "checked"; ?>>
                         <label class="form-check-label" for="flexCheckDefault">
                             Bersepedah
                         </label>
@@ -85,23 +105,25 @@
 
                     <label for="" class="mb-1"> Fakultas : </label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="fakultas" id="fakultas1" value="FTIB">
+                        <input class="form-check-input" type="radio" name="fakultas" id="fakultas1" value="FTIB" <?php if ($d['fakultas'] == "FTIB") echo "checked"; ?>>
                         <label class="form-check-label" for="fakultas1">
                             FTIB
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="fakultas" id="fakultas2" value="FTIC">
+                        <input class="form-check-input" type="radio" name="fakultas" id="fakultas2" value="FTIC" <?php if ($d['fakultas'] == "FTIC") echo "checked"; ?>>
                         <label class="form-check-label" for="fakultas2">
                             FTIC
                         </label>
                     </div>
 
-                    
+
+
+
 
 
                     <div class="d-grid gap-2 mt-5">
-                        <button class="btn btn-primary" type="submit" name="save" >Submit</button>
+                        <button class="btn btn-primary" type="submit" name="save">Submit</button>
                     </div>
                 </form>
 
@@ -112,7 +134,7 @@
     </div>
     <!-- content -->
 
-    
+
 
 
     <!-- Optional JavaScript; choose one of the two! -->
@@ -130,11 +152,11 @@
 </html>
 
 <?php
-include 'hubung.php';
+
 
 if (isset($_POST['save'])) {
 
-    $data=[
+    $data = [
         'nama' => $_POST['nama'],
         'nim' => $_POST['nim'],
         'alamat' => $_POST['alamat'],
@@ -145,29 +167,40 @@ if (isset($_POST['save'])) {
         'fakultas' => $_POST['fakultas'],
     ];
 
-    // upload file 
-    
+    if ($_FILES['foto']['name'] != null) {
         $targetDirectory = 'image/';
         $targetFile = $targetDirectory . basename($_FILES['foto']['name']);
 
-        
-
-        
-        
-        
         if (file_exists($targetFile)) {
             echo "<script>alert('Failed!,File already exist')</script>";
         } else {
-            if (move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {    
-                // save data to database
-                $sql = "INSERT INTO mahasiswa (nama,nim,alamat,no_telp,prodi,sex,hobi,fakultas,foto) VALUES ('".$data['nama']."','".$data['nim']."','".$data['alamat']."','".$data['noTlpn']."','".$data['prodi']."','".$data['jenisKelamin']."','".$data['hobi']."','".$data['fakultas']."','".$targetFile."')";
+            if (move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {
+
+                // update data 
+
+                $sql = "UPDATE `mahasiswa` SET `nim` = '" . $data['nim'] . "', `nama` = '" . $data['nama'] . "', `alamat` = '" . $data['alamat'] . "', `no_telp` = '" . $data['noTlpn'] . "', `hobi` = '" . $data['hobi'] . "', `prodi` = '" . $data['prodi'] . "', `fakultas` = '" . $data['fakultas'] . "', `sex` = '" . $data['jenisKelamin'] . "', `foto` = '" . $targetFile . "' WHERE `mahasiswa`.`nim` = $nim";
                 $query = mysqli_query($koneksi, $sql);
 
-                echo "<script>alert('Success')</script>";    
+                echo "
+                <script>
+                window.location.href = '/MAHASISWA/daftarmahasiswa.php'
+                alert('Success');
+                </script>";
             } else {
                 echo "<script>alert('Failed!')</script>";
             }
         }
+    } else {
+        $sql = "UPDATE `mahasiswa` SET `nim` = '" . $data['nim'] . "', `nama` = '" . $data['nama'] . "', `alamat` = '" . $data['alamat'] . "', `no_telp` = '" . $data['noTlpn'] . "', `hobi` = '" . $data['hobi'] . "', `prodi` = '" . $data['prodi'] . "', `fakultas` = '" . $data['fakultas'] . "', `sex` = '" . $data['jenisKelamin'] . "' WHERE `mahasiswa`.`nim` = $nim";
+        $query = mysqli_query($koneksi, $sql);
+
+        echo "
+        <script>
+        window.location.href = '/MAHASISWA/daftarmahasiswa.php'
+        alert('Success');
+        </script>";
+        
+    }
 }
 
 ?>

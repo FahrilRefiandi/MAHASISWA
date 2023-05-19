@@ -17,50 +17,18 @@
 <body>
 
 
-    <!-- header -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Daftar Mahasiswa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Data User</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown link
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- header -->
-    <?php
-include "hubung.php";
-$hasil = mysqli_query($koneksi,"SELECT * FROM mahasiswa" );
-?>
-<?php
 
-$no =1;
-if ($hasil === false)
-{
-    echo "data gaagl";
-}?>
+
+    <?php
+    include "hubung.php";
+    $hasil = mysqli_query($koneksi, "SELECT * FROM mahasiswa");
+    ?>
+    <?php
+
+    $no = 1;
+    if ($hasil === false) {
+        echo "data gaagl";
+    } ?>
 
 
 
@@ -70,31 +38,34 @@ if ($hasil === false)
         <div class="card">
             <div class="card-body">
                 <h4>Daftar Mahasiswa</h4>
-<!-- <<<<<<< HEAD -->
-                <div class="list-group">
-                <?php
-                    while($d =$hasil -> fetch_array()) {?>
-                 
 
-                <div class="list-group mt-4">
-                    <a href="detail.php?nama=<?=$d['nama']?>" class="list-group-item d-flex justify-content-between align-items-center"><?php echo $d["nama"]; ?>
-                        <span class="badge">
-                            <!-- tolong diubah jadi button kayak awalnya karena tadi gak bisa ngakses link ke halaman edit -->
-                            <a class="btn btn-primary " href="##" role="button" type="submit"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a class="btn btn-danger" href="##" type="submit"><i class="fa-solid fa-trash-can"></i></a>
-                        </span>
-                    </a>
-                   
-                    
-                   <?php }
-                ?>
-                    
-                    
-                </div>
+
+                <ol class="list-group list-group-numbered mt-3">
+                    <?php
+                    while ($d = $hasil->fetch_array()) { ?>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <a href="detail.php?nama=<?= $d['nama'] ?>" class="ms-2 me-auto text-decoration-none text-dark">
+                                <div class="fw-bold"> <?= $d['nama'] ?> </div>
+                            </a>
+                            <span class="badge">
+                                <form action="" method="post">
+                                    <a class="btn btn-primary" href="edit.php/<?= $d['nim'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <button class="btn btn-danger" onclick="return confirm('Anda yakin data <?= $d['nama'] ?> akan dihapus ?')" name="delete" value="<?= $d['nim']; ?>" type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                </form>
+                            </span>
+                        </li>
+                    <?php } ?>
+
+                </ol>
+
+
+
+
+
 
 
                 <div class="d-grid gap-2 mt-5">
-                    <a class="btn btn-primary" href="###" role="button">Tambah Data</a>
+                    <a class="btn btn-primary" href="tambahdata.php" role="button">Tambah Data</a>
                 </div>
 
 
@@ -104,7 +75,21 @@ if ($hasil === false)
     </div>
     <!-- content -->
 
+    <?php
     
+    if(isset($_POST['delete'])){
+        $nim = $_POST['delete'];
+        $hasil = mysqli_query($koneksi, "DELETE FROM mahasiswa WHERE nim = '$nim'");
+        if($hasil){
+            echo "<script>window.location.href = '/MAHASISWA/daftarmahasiswa.php'</script>";
+        }else{
+            echo "<script>alert('Data gagal dihapus')</script>";
+            echo "<script>window.location.href = '/MAHASISWA/daftarmahasiswa.php'</script>";
+        }
+    }
+
+    ?>
+
 
     <!-- Optional JavaScript; choose one of the two! -->
 

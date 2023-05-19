@@ -16,120 +16,78 @@
 
 <body>
 
-    <!-- header -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Daftar Mahasiswa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Data User</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown link
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- header -->
-<!-- program phpnya -->
-<?php
-if (isset($_GET["nama"]))
-{
-    $nama = $_GET["nama"];
-}
-include "hubung.php";
-$kueri = mysqli_query($koneksi, "SELECT * FROM mahasiswa where nama ='$nama'");
-$d = mysqli_fetch_array($kueri);
-?>
+
+    <!-- program phpnya -->
+    <?php
+    if (isset($_GET["nama"])) {
+        $nama = $_GET["nama"];
+    }
+    include "hubung.php";
+    $kueri = mysqli_query($koneksi, "SELECT * FROM mahasiswa where nama ='$nama'");
+    $d = mysqli_fetch_array($kueri);
+    ?>
 
 
     <!-- content -->
-    <div class="container mt-6 pt-6">
+    <div class="container mt-5">
+
         <div class="card">
             <div class="card-body">
-                <h4 class="mb-3 text-center">data <?php echo $d["nama"];?></h4>
 
-                    <div class="row">
-                        <div class="col">nim:</div>
-                        <div class="col"> <?php echo $d["nim"];?></div>
-                    </div> 
-                   
-              
-                    <div class="row">
-                        <div class="col text-left">nama:</div>
-                        <div class="col"> <?php echo $d["nama"];?></div>
-                    </div> 
-                   
-                    <div class="row">
-                        <div class="col">alamat:</div>
-                        <div class="col"> <?php echo $d["alamat"];?></div>
-                    </div> 
-                   
-                    <div class="row">
-                        <div class="col">no telpon:</div>
-                        <div class="col"> <?php echo $d["no_telp"];?></div>
-                    </div> 
-                   
-                    <div class="row">
-                        <div class="col">hobi:</div>
-                        <div class="col"> <?php echo $d["hobi"];?></div>
-                    </div> 
-                   
-                    <div class="row">
-                        <div class="col">prodi:</div>
-                        <div class="col"> <?php echo $d["prodi"];?></div>
-                    </div> 
-                   
-                    <div class="row">
-                        <div class="col">fakultas:</div>
-                        <div class="col"> <?php echo $d["fakultas"];?></div>
-                    </div> 
-                   
-                    <div class="row">
-                        <div class="col">jenis kelamin:</div>
-                        <div class="col"> <?php echo $d["sex"];?></div>
-                    </div> 
-                   
-                    <div class="row">
-                        <div class="col">foto:</div>
-                        <div class="col"><img src=" <?php echo $d["foto"];?>" style="width:100px;"></div>
-                    </div> 
+                <img src=" <?php echo $d["foto"]; ?>" width="200" height="200" class="rounded-circle mx-auto d-block shadow-lg" alt="...">
 
-                    <div class="row" pt-5>
-                        
-                             <div class="col">
-                                <a href="daftarmahasiswa.php" class="btn btn-primary" role="button"> kembali</a>
-                            </div>
-                       
-                                        
-                   
-                   
+                <table class="table mt-5">
+
+                    <tbody>
+                        <tr>
+                            <td>Nim</td>
+                            <td><?php echo $d["nim"]; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Nama</td>
+                            <td><?php echo $d["nama"]; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Alamat</td>
+                            <td><?php echo $d["alamat"]; ?></td>
+                        </tr>
+                        <tr>
+                            <td>No Tlpn</td>
+                            <td><?php echo $d["no_telp"]; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Hobi</td>
+                            <td><?php echo $d["hobi"]; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Prodi</td>
+                            <td><?php echo $d["prodi"]; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Fakultas</td>
+                            <td><?php echo $d["fakultas"]; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Kelamin</td>
+                            <td><?php echo $d["sex"]; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row" pt-5>
+
+                    <div class="col">
+                        <a href="daftarmahasiswa.php" class="btn btn-primary" role="button"> kembali</a>
+                    </div>
                 </div>
-
-                </div>
-               
-
-
 
             </div>
+
+
+
+
         </div>
+    </div>
     </div>
     <!-- content -->
 
