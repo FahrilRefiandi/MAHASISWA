@@ -63,20 +63,20 @@
 
                     <label for="" class="mb-1"> Hobi : </label>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Memancing" id="memeancing" name="hobi" >
+                        <input class="form-check-input" type="checkbox" value="Memancing" id="memeancing" name="hobi[]" >
                         <label class="form-check-label" for="flexCheckDefault">
                             Memancing
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Berenang" id="berenang" name="hobi" >
+                        <input class="form-check-input" type="checkbox" value="Berenang" id="berenang" name="hobi[]" >
                         <label class="form-check-label" for="flexCheckDefault">
                             Berenang
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Bersepedah" id="bersepedah" name="hobi">
+                        <input class="form-check-input" type="checkbox" value="Bersepedah" id="bersepedah" name="hobi[]">
                         <label class="form-check-label" for="flexCheckDefault">
                             Bersepedah
                         </label>

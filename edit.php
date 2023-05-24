@@ -44,9 +44,9 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="mb-3">Edit Data</h4>
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" action="tambah_update.php" enctype="multipart/form-data">
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control " id="nim" name="nim" value="<?= $d['nim'] ?>" placeholder="1203210093" disabled>
+                        <input type="number" class="form-control " id="nim" name="nim" value="<?= $d['nim'] ?>" placeholder="1203210093" >
                         <label for="nim">Nim</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -85,20 +85,20 @@
 
                     <label for="" class="mb-1"> Hobi : </label>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Memancing" id="memeancing" name="hobi" <?php if ($d['hobi'] == "Memancing") echo "checked"; ?>>
+                        <input class="form-check-input" type="checkbox" value="Memancing" id="memeancing" name="hobi[]" <?php if ($d['hobi'] == "Memancing") echo "checked"; ?>>
                         <label class="form-check-label" for="flexCheckDefault">
                             Memancing
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Berenang" id="berenang" name="hobi" <?php if ($d['hobi'] == "Berenang") echo "checked"; ?>>
+                        <input class="form-check-input" type="checkbox" value="Berenang" id="berenang" name="hobi[]" <?php if ($d['hobi'] == "Berenang") echo "checked"; ?>>
                         <label class="form-check-label" for="flexCheckDefault">
                             Berenang
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Bersepedah" id="bersepedah" name="hobi" <?php if ($d['hobi'] == "Bersepedah") echo "checked"; ?>>
+                        <input class="form-check-input" type="checkbox" value="Bersepedah" id="bersepedah" name="hobi[]" <?php if ($d['hobi'] == "Bersepedah") echo "checked"; ?>>
                         <label class="form-check-label" for="flexCheckDefault">
                             Bersepedah
                         </label>
@@ -153,88 +153,3 @@
 
 </html>
 
-<?php
-
-
-// if (isset($_POST['save'])) {
-
-//     $data = [
-//         'nama' => $_POST['nama'],
-//         'nim' => $_POST['nim'],
-//         'alamat' => $_POST['alamat'],
-//         'noTlpn' => $_POST['noTlpn'],
-//         'prodi' => $_POST['prodi'],
-//         'jenisKelamin' => $_POST['jenisKelamin'],
-//         'hobi' => $_POST['hobi'],
-//         'fakultas' => $_POST['fakultas'],
-//     ];
-
-//     if ($_FILES['foto']['name'] != null) {
-//         $targetDirectory = 'image/';
-//         $targetFile = $targetDirectory . basename($_FILES['foto']['name']);
-
-//         if (file_exists($targetFile)) {
-//             echo "<script>alert('Failed!,File already exist')</script>";
-//         } else {
-//             if (move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {
-
-//                 // update data 
-
-//                 $sql = "UPDATE `mahasiswa` SET `nim` = '" . $data['nim'] . "', `nama` = '" . $data['nama'] . "', `alamat` = '" . $data['alamat'] . "', `no_telp` = '" . $data['noTlpn'] . "', `hobi` = '" . $data['hobi'] . "', `prodi` = '" . $data['prodi'] . "', `fakultas` = '" . $data['fakultas'] . "', `sex` = '" . $data['jenisKelamin'] . "', `foto` = '" . $targetFile . "' WHERE `mahasiswa`.`nim` = $nim";
-//                 $query = mysqli_query($koneksi, $sql);
-
-//                 echo "
-//                 <script>
-//                 window.location.href = '/MAHASISWA/index.php'
-//                 alert('Success');
-//                 </script>";
-//             } else {
-//                 echo "<script>alert('Failed!')</script>";
-//             }
-//         }
-//     } else {
-//         $sql = "UPDATE `mahasiswa` SET `nim` = '" . $data['nim'] . "', `nama` = '" . $data['nama'] . "', `alamat` = '" . $data['alamat'] . "', `no_telp` = '" . $data['noTlpn'] . "', `hobi` = '" . $data['hobi'] . "', `prodi` = '" . $data['prodi'] . "', `fakultas` = '" . $data['fakultas'] . "', `sex` = '" . $data['jenisKelamin'] . "' WHERE `mahasiswa`.`nim` = $nim";
-//         $query = mysqli_query($koneksi, $sql);
-
-//         echo "
-//         <script>
-//         window.location.href = '/MAHASISWA/index.php'
-//         alert('Success');
-//         </script>";
-        
-//     }
-// }
-if (isset($_POST['save'])) {
-    $nim = $_POST["nim"];
-    $nama = $_POST["nama"];
-    $alamat = $_POST["alamat"];//flag
-    $no_telp = $_POST["no_telp"];//flag
-    $prodi = $_POST["prodi"];
-    $sex = $_POST["sex"]; //flag
-    $fakultas = $_POST["fakultas"];
-    
-    $hobi = $_POST["hobi"];
-    
-    //upload gambar dulu
-    $namafile="";
-    
-        $namafile=$_FILES['foto']['name'];
-        $tmpname = $_FILES['foto']['tmp_name'];
-        // $size = $_FILES['foto']['size'];
-        move_uploaded_file($tmpname, 'image/'.$namafile);
-    $path = "image/".$namafile;
-    $sql = "UPDATE mahasiswa SET  nama='$nama', alamat = '$alamat' , no_telp= '$no_telp', hobi = '$hobi', prodi= '$prodi', fakultas = '$fakultas', sex ='$sex',foto = '$path' WHERE nim = '$nim'";
-
-    if (mysqli_query($koneksi, $sql))
-    {
-        // header("Location:index.php");
-       echo" <script>
-                window.location.href = 'index.php'
-                alert('Success');
-                </script>";
-        
-    }
-    else
-    echo "Error updating record: " . mysqli_error($koneksi);
-}
-?>

@@ -22,10 +22,12 @@ $namafile="";
     // $size = $_FILES['foto']['size'];
     move_uploaded_file($tmpname, 'image/'.$namafile);
 $path = "image/".$namafile;
+//hobi
+$kumhobi = implode(",", $hobi);
 
 // upload ke database
 
-$kueri = "INSERT INTO mahasiswa VALUES ('$nim','$nama','$alamat','$no_telp','$hobi','$prodi','$fakultas', '$sex', '$path' )";
+$kueri = "INSERT INTO mahasiswa VALUES ('$nim','$nama','$alamat','$no_telp','$kumhobi','$prodi','$fakultas', '$sex', '$path' )";
 if (mysqli_query($koneksi,$kueri))
 {
     header("location: index.php");
@@ -40,7 +42,7 @@ else{
 // echo " prodi".$prodi;
 // echo " fak".$fakultas;
 // echo " jekamin".$sex;
-// echo " file".$namafile;
+// echo " file".$path;
 // for ($i=0; $i< count($hobi);$i++)
 // {
 //     echo $hobi[$i];
